@@ -47,9 +47,10 @@ namespace WebCompressor
             return filepath;
         }
 
-        private String BrowseFolder()
+        private String BrowseFolder(String path = "")
         {
             System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.SelectedPath = path;
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
 
 
@@ -68,12 +69,12 @@ namespace WebCompressor
 
         private void btn_source_browse_Click(object sender, RoutedEventArgs e)
         {
-            tb_source.Text = BrowseFolder();
+            tb_source.Text = BrowseFolder(tb_source.Text);
         }
 
         private void btn_target_browse_Click(object sender, RoutedEventArgs e)
         {
-            tb_target.Text = BrowseFolder();
+            tb_target.Text = BrowseFolder(tb_target.Text);
         }
 
         public void ExecuteCommand(string command)
@@ -206,6 +207,23 @@ namespace WebCompressor
         private void btn_htmc_download_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://code.google.com/p/htmlcompressor/downloads");
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Properties.Settings.Default.HTTPCOMPRESSOR_PATH = tb_htmlc.Text;
+            Properties.Settings.Default.YUICOMPRESSOR_PATH = tb_yui.Text;
+            Properties.Settings.Default.SOURCE_PATH = tb_source.Text;
+            Properties.Settings.Default.TARGET_PATH = tb_target.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            tb_htmlc.Text = Properties.Settings.Default.HTTPCOMPRESSOR_PATH;
+            tb_yui.Text = Properties.Settings.Default.YUICOMPRESSOR_PATH;
+            tb_source.Text = Properties.Settings.Default.SOURCE_PATH;
+            tb_target.Text = Properties.Settings.Default.TARGET_PATH;
         }
 
 
