@@ -169,10 +169,11 @@ namespace WebCompressor
                         String ext = System.IO.Path.GetExtension(src_file);
                         if ((ext == ".htm" || ext == ".html") && enableHTMLCompress)
                         {
+
                             //execute_jar(tb_htmlc.Text + " --compress-js " + src_file + " > " + target_file);
                             w.WriteLine("java -jar " + tb_htmlc.Text + " --compress-js " + src_file + " > " + target_file);
                         }
-                        else if ((ext == ".js" || ext == ".css") && enableYUICompress)
+                        else if ((ext == ".js" || ext == ".css") && enableYUICompress && !((cb_skip_min_file.IsChecked == true) && (src_file.ToLower().EndsWith(".min.js") || src_file.ToLower().EndsWith(".min.css"))))
                         {
                             //execute_jar(tb_yui.Text + " " + src_file + " -o " + target_file);
                             w.WriteLine("java -jar " + tb_yui.Text + " " + src_file + " -o " + target_file);
@@ -194,6 +195,7 @@ namespace WebCompressor
 
             ExecuteCommand(temp_bat_file);
 
+            //Delete temp batch file
             File.Delete(temp_bat_file);
 
             MessageBox.Show("Completed");
@@ -215,6 +217,7 @@ namespace WebCompressor
             Properties.Settings.Default.YUICOMPRESSOR_PATH = tb_yui.Text;
             Properties.Settings.Default.SOURCE_PATH = tb_source.Text;
             Properties.Settings.Default.TARGET_PATH = tb_target.Text;
+            Properties.Settings.Default.CHECKED_SKIP_MIN_FILE = (cb_skip_min_file.IsChecked == true);
             Properties.Settings.Default.Save();
         }
 
@@ -224,6 +227,7 @@ namespace WebCompressor
             tb_yui.Text = Properties.Settings.Default.YUICOMPRESSOR_PATH;
             tb_source.Text = Properties.Settings.Default.SOURCE_PATH;
             tb_target.Text = Properties.Settings.Default.TARGET_PATH;
+            cb_skip_min_file.IsChecked = Properties.Settings.Default.CHECKED_SKIP_MIN_FILE;
         }
 
 

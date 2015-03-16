@@ -70,5 +70,17 @@ namespace WebCompressor.Properties {
                 this["TARGET_PATH"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CHECKED_SKIP_MIN_FILE {
+            get {
+                return ((bool)(this["CHECKED_SKIP_MIN_FILE"]));
+            }
+            set {
+                this["CHECKED_SKIP_MIN_FILE"] = value;
+            }
+        }
     }
 }

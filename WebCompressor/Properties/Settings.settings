@@ -14,5 +14,8 @@
     <Setting Name="TARGET_PATH" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="CHECKED_SKIP_MIN_FILE" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
